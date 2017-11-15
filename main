@@ -1,0 +1,32 @@
+String quere = "select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Moscow%2C%20ak%22)&format=json&env";
+        String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20" +
+                "weather.forecast%20where%20woeid%20in%20" +
+                "(select%20woeid%20from%20geo.places(1)%20" +
+                "where%20text%3D%22Moscow%2C%20ak%22)" +
+                "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        HttpURLConnection connection = null;
+        try {
+            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setUseCaches(false);
+            connection.setConnectTimeout(250);
+            connection.setReadTimeout(250);
+            connection.connect();
+            StringBuilder builde = new StringBuilder();
+            if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builde.append(line + "\n");
+                }
+                System.out.println(builde);
+            }else {
+                System.out.println("fail "+ connection.getResponseCode());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
