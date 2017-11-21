@@ -14,7 +14,7 @@
 	<mvc:default-servlet-handler/>
 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="jdbc/testDB"/>
+		<property name="jndiName" value="java:/PostgresDS"/>
 	</bean>
 
 	<bean
@@ -46,6 +46,7 @@
 				<value>net.models.Results</value>
 				<value>net.models.Units</value>
 				<value>net.models.Wind</value>
+				<value>net.models.Test</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

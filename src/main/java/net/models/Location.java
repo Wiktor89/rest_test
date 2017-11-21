@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * Created by VAfonin on 15.11.2017.
  */
 @Entity
-@Table(name = "location")
+@Table(name = "locations")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Location extends EssenceForId{
 

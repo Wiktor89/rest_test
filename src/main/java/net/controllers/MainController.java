@@ -3,6 +3,7 @@ package net.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.models.Query;
+import net.models.Test;
 import net.service.ServiceCity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        serviceCity.testCity(new Test(name));
     }
 
 }

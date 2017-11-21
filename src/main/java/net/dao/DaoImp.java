@@ -1,6 +1,7 @@
 package net.dao;
 
 import net.models.Query;
+import net.models.Test;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,5 +39,13 @@ public class DaoImp implements Dao {
     public void removeCity(Query city) {
         LOGGER.info("Remove city " + city);
         LOGGER.debug("Remove city " + city);
+    }
+
+    @Override
+    public void testCity(Test city) {
+        LOGGER.info("City" + city);
+        LOGGER.debug("City" + city);
+        Session ses = sessionFactory.getCurrentSession();
+        ses.saveOrUpdate(city);
     }
 }

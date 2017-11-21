@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by VAfonin on 15.11.2017.
  */
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Item extends EssenceForId{
 

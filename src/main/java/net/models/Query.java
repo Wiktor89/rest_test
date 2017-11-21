@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by VAfonin on 15.11.2017.
  */
 @Entity
-@Table(name = "query")
+@Table(name = "queries")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Query extends EssenceForId {
 

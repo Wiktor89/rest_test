@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by VAfonin on 15.11.2017.
  */
 @Entity
-@Table(name = "forecast")
+@Table(name = "forecasts")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Forecast extends EssenceForId{
 

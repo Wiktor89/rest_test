@@ -2,6 +2,7 @@ package net.service;
 
 import net.dao.Dao;
 import net.models.Query;
+import net.models.Test;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,5 +40,10 @@ public class ServiceCityImp implements ServiceCity {
         LOGGER.info("City" + city);
         LOGGER.debug("City" + city);
         dao.removeCity(city);
+    }
+
+    @Override
+    public void testCity(Test city) {
+        dao.testCity(city);
     }
 }
