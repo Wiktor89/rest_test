@@ -1,5 +1,6 @@
 package net.dao;
 
+import net.models.Query;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,7 @@ public class DaoImp implements Dao {
     }
 
     @Override
-    public void addCity(City city) {
+    public void addCity(Query city) {
         LOGGER.info("City" + city);
         LOGGER.debug("City" + city);
         Session ses = sessionFactory.getCurrentSession();
@@ -34,7 +35,7 @@ public class DaoImp implements Dao {
     }
 
     @Override
-    public void removeCity(City city) {
+    public void removeCity(Query city) {
         LOGGER.info("Remove city " + city);
         LOGGER.debug("Remove city " + city);
     }

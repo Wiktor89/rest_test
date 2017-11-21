@@ -1,6 +1,7 @@
 package net.service;
 
 import net.dao.Dao;
+import net.models.Query;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,14 +28,14 @@ public class ServiceCityImp implements ServiceCity {
     }
 
     @Override
-    public void addCity(City city) {
+    public void addCity(Query city) {
         LOGGER.info("City " + city);
         LOGGER.debug("City " + city);
         dao.addCity(city);
     }
 
     @Override
-    public void removeCity(City city) {
+    public void removeCity(Query city) {
         LOGGER.info("City" + city);
         LOGGER.debug("City" + city);
         dao.removeCity(city);

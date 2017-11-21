@@ -1,13 +1,15 @@
 package net.service;
 
+import net.models.Query;
+
 /**
  * Created by VAfonin on 14.11.2017.
  */
 public interface ServiceCity {
 
-    void addCity(City city);
+    void addCity(Query city);
 
-    void removeCity(City city);
+    void removeCity(Query city);
 
 
 }
