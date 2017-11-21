@@ -1,6 +1,5 @@
 package net.dao;
 
-import net.models.City;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

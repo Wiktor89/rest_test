@@ -1,7 +1,5 @@
 package net.dao;
 
-import net.models.City;
-
 /**
  * Created by VAfonin on 14.11.2017.
  */
