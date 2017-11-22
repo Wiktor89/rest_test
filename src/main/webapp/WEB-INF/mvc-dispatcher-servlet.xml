@@ -33,19 +33,17 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="annotatedClasses">
 			<list>
-				<value>net.models.Astronomy</value>
-				<value>net.models.Atmosphere</value>
 				<value>net.models.Channel</value>
 				<value>net.models.Condition</value>
 				<value>net.models.EssenceForId</value>
+				<value>net.models.Atmosphere</value>
 				<value>net.models.Forecast</value>
 				<value>net.models.Image</value>
 				<value>net.models.Item</value>
 				<value>net.models.Location</value>
-				<value>net.models.Query</value>
-				<value>net.models.Results</value>
 				<value>net.models.Units</value>
 				<value>net.models.Wind</value>
+				<value>net.models.Astronomy</value>
 				<value>net.models.Test</value>
 			</list>
 		</property>

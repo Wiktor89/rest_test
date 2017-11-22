@@ -1,5 +1,5 @@
 CREATE TABLE units (
-    units_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     units_distance VARCHAR(250),
     units_pressure VARCHAR(250),
     units_speed VARCHAR(250),
@@ -7,21 +7,21 @@ CREATE TABLE units (
 );
 
 CREATE TABLE locations (
-    loc_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     loc_city VARCHAR(250),
     loc_country VARCHAR(250),
     loc_region VARCHAR(250)
 );
 
 CREATE TABLE winds (
-    wind_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     wind_chill INTEGER,
     wind_direction INTEGER,
     wind_speed INTEGER
 );
 
 CREATE TABLE atmospheres (
-    atmo_id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     atmo_humidity INTEGER,
     atmo_pressure REAL,
     atmo_rising INTEGER,
@@ -29,13 +29,13 @@ CREATE TABLE atmospheres (
 );
 
 CREATE TABLE astronomy (
-    astro_id bigserial PRIMARY KEY,
-    astro_sunrise TIMESTAMP,
-    astro_sunset TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    astro_sunrise VARCHAR(250),
+    astro_sunset VARCHAR(250)
 );
 
 CREATE TABLE images (
-    image_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     image_title VARCHAR(250),
     image_width INTEGER,
     image_height INTEGER,
@@ -44,27 +44,27 @@ CREATE TABLE images (
 );
 
 CREATE TABLE conditions (
-    condition_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     condition_code INTEGER,
-    condition_date TIMESTAMP,
+    condition_date VARCHAR(250),
     condition_temp INTEGER,
     condition_text VARCHAR(250)
 );
 
 CREATE TABLE items (
-    item_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     item_title VARCHAR(250),
     item_lat REAL,
     item_long REAL,
     item_link VARCHAR(250),
     item_desc VARCHAR(250),
-    item_pub_date TIMESTAMP,
+    item_pub_date VARCHAR(250),
     item_condition INTEGER REFERENCES conditions ON DELETE RESTRICT
 );
 
 CREATE TABLE forecasts (
-    forecast_id bigserial PRIMARY KEY,
-    forecast_date TIMESTAMP,
+    id SERIAL PRIMARY KEY,
+    forecast_date VARCHAR(250),
     forecast_day VARCHAR(10),
     forecast_high INTEGER,
     forecast_low INTEGER,
@@ -73,13 +73,13 @@ CREATE TABLE forecasts (
 );
 
 CREATE TABLE channels (
-    channel_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     channel_units INTEGER REFERENCES units ON DELETE RESTRICT,
     channel_title VARCHAR(250),
     channel_link VARCHAR(250),
     channel_desc VARCHAR(250),
     channel_lang VARCHAR(10),
-    channel_last_build TIMESTAMP,
+    channel_last_build VARCHAR(250),
     channel_ttl INTEGER,
     channel_location INTEGER REFERENCES locations ON DELETE RESTRICT,
     channel_wind INTEGER REFERENCES winds ON DELETE RESTRICT,
@@ -90,9 +90,9 @@ CREATE TABLE channels (
 );
 
 CREATE TABLE queries (
-    query_id bigserial PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     query_count INTEGER,
-    query_created TIMESTAMP,
+    query_created VARCHAR(250),
     query_lang VARCHAR(10),
     query_channel INTEGER REFERENCES channels ON DELETE RESTRICT
 );

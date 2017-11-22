@@ -35,4 +35,5 @@ public class Astronomy extends EssenceForId {
     public void setSunset(String sunset) {
         this.sunset = sunset;
     }
+
 }

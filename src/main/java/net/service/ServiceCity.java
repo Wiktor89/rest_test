@@ -1,18 +1,14 @@
 package net.service;
 
-import net.models.Query;
-import net.models.Test;
+import net.models.Channel;
 
 /**
  * Created by VAfonin on 14.11.2017.
  */
 public interface ServiceCity {
 
-    void addCity(Query city);
+    void addCity(Channel city);
 
-    void removeCity(Query city);
-
-    void testCity(Test city);
-
+    void removeCity(Channel city);
 
 }

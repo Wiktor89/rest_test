@@ -2,8 +2,7 @@ package net.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.models.Query;
-import net.models.Test;
+import net.models.Channel;
 import net.service.ServiceCity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +40,16 @@ public class MainController {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = null;
         RestTemplate restTemplate = new RestTemplate();
-        jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query");
-        Query query = null;
+        jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query").get("results").get("channel");
+        Channel channel = null;
         try {
-            query = mapper.readValue(jsonNode.traverse(), Query.class);
-            System.out.println(query.getCount());
+            channel = mapper.readValue(jsonNode.traverse(), Channel.class);
+            LOGGER.info("Channel " + channel);
+            LOGGER.debug("Channel " + channel);
+            serviceCity.addCity(channel);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        serviceCity.testCity(new Test(name));
     }
 
 }

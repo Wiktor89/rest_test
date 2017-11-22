@@ -12,10 +12,6 @@ import javax.persistence.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Channel extends EssenceForId {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "channel_units")
-    private Units units;
-
     @Column(name = "channel_title")
     private String title;
 
@@ -32,7 +28,11 @@ public class Channel extends EssenceForId {
     private String lastBuildDate;
 
     @Column(name = "channel_ttl")
-    private Integer ttl;
+    private int ttl;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "channel_units")
+    private Units units;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "channel_location")
@@ -54,9 +54,9 @@ public class Channel extends EssenceForId {
     @JoinColumn(name = "channel_image")
     private Image image;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "channel_item")
-    private Item item;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "channel_item")
+//    private Item item;
 
     public Units getUnits() {
         return units;
@@ -106,11 +106,11 @@ public class Channel extends EssenceForId {
         this.lastBuildDate = lastBuildDate;
     }
 
-    public Integer getTtl() {
+    public int getTtl() {
         return ttl;
     }
 
-    public void setTtl(Integer ttl) {
+    public void setTtl(int ttl) {
         this.ttl = ttl;
     }
 
@@ -153,12 +153,12 @@ public class Channel extends EssenceForId {
     public void setImage(Image image) {
         this.image = image;
     }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
+//
+//    public Item getItem() {
+//        return item;
+//    }
+//
+//    public void setItem(Item item) {
+//        this.item = item;
+//    }
 }
