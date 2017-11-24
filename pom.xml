@@ -18,7 +18,25 @@
 
   <dependencies>
 
+    <!--<dependency>-->
+      <!--<groupId>org.apache.activemq</groupId>-->
+      <!--<artifactId>activemq-all</artifactId>-->
+      <!--<version>5.12.0</version>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.wildfly</groupId>
+      <artifactId>wildfly-ee</artifactId>
+      <version>11.0.0.Final</version>
+    </dependency>
+
     <!-- Spring 4 dependencies -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -50,9 +68,16 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.jms</groupId>
+      <artifactId>javax.jms-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jms</artifactId>
-      <version>${spring.version}</version>
+      <version>4.3.4.RELEASE</version>
     </dependency>
 
     <!-- JRoleToUserProfileConverterrter -->

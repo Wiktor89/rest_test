@@ -1,8 +1,5 @@
 package net.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.models.Channel;
 import net.service.ServiceCity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import javax.jms.*;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @RequestMapping("/main")
 @RestController
@@ -34,21 +33,64 @@ public class MainController {
 
     @RequestMapping(value = "/nameCity", method = RequestMethod.GET)
     public void getMovie(@RequestParam String name, ModelMap modelMap) {
-        restTemplate = new RestTemplate();
-        String url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where " +
-                "woeid in (select woeid from geo.places(1) where text=\"" + name + "\")&format=json";
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = null;
-        RestTemplate restTemplate = new RestTemplate();
-        jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query").get("results").get("channel");
-        Channel channel = null;
+
+        ConnectionFactory connectionFactory = null;
+        Destination destination = null;
+        InitialContext initialContext = null;
+
         try {
-            channel = mapper.readValue(jsonNode.traverse(), Channel.class);
-            LOGGER.info("Channel " + channel);
-            LOGGER.debug("Channel " + channel);
-            serviceCity.addCity(channel);
-        } catch (IOException e) {
+            initialContext = new InitialContext();
+            connectionFactory = (ConnectionFactory) initialContext.lookup("java:jboss/exported/jms/RemoteConnectionFactory");
+            destination = (Destination) initialContext.lookup("java:jboss/exported/jms/queue/testBroker");
+            LOGGER.info("Factory {}" + connectionFactory.getClass().getName());
+            LOGGER.info("Factory {}" + destination.getClass().getName());
+            sendMessage(connectionFactory, destination);
+        } catch (NamingException e) {
             e.printStackTrace();
+        }
+
+//        restTemplate = new RestTemplate();
+//        String url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where " +
+//                "woeid in (select woeid from geo.places(1) where text=\"" + name + "\")&format=json";
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode jsonNode = null;
+//        RestTemplate restTemplate = new RestTemplate();
+//        jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query").get("results").get("channel");
+//        Channel channel = null;
+//        try {
+//            channel = mapper.readValue(jsonNode.traverse(), Channel.class);
+//            LOGGER.info("Channel " + channel);
+//            LOGGER.debug("Channel " + channel);
+//            serviceCity.addCity(channel);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private static void sendMessage(ConnectionFactory connectionFactory, Destination destination) {
+
+        Connection connection = null;
+        Session session = null;
+        MessageProducer messageProducer = null;
+
+        try {
+            connection =  connectionFactory.createConnection("test", "test");
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            messageProducer = session.createProducer(destination);
+
+            TextMessage text = session.createTextMessage();
+            text.setText("Send some useful message");
+            messageProducer.send(text);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException f) {
+                    f.printStackTrace();
+                }
+            }
         }
     }
 
