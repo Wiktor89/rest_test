@@ -25,11 +25,13 @@ import java.util.Properties;
 @RestController
 public class MainController {
 
-    private RestTemplate restTemplate;
-
     private static final Logger LOGGER = Logger.getLogger(MainController.class);
 
+    private RestTemplate restTemplate;
+
     private ServiceCity serviceCity;
+
+
 
     @Autowired
     @Qualifier(value = "serviceCity")

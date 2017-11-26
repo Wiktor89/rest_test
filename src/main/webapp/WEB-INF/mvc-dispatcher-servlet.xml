@@ -34,42 +34,42 @@
         </property>
     </bean>
 
+    <bean id="connectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate" ref="JndiTemplate"/>
+        <property name="jndiName" value="java:jboss/exported/jms/RemoteConnectionFactory"/>
+    </bean>
 
-    <!--<bean id="connectionfactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<property name="jndiTemplate" ref="JndiTemplate"/>-->
-        <!--<property name="jndiName" value="java:jboss/exported/jms/RemoteConnectionFactory"/>-->
-    <!--</bean>-->
+    <bean id="destination" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiTemplate" ref="JndiTemplate"/>
+    <property name="jndiName" value="java:/testBroker"/>
+    </bean>
 
-    <!--<bean id="destination" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-    <!--<property name="jndiTemplate" ref="jnditemplate"/>-->
-    <!--<property name="jndiName" value="java:jboss/exported/jms/queue/testBroker"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="credentialsconnectionfactory"-->
-    <!--class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">-->
-    <!--<property name="targetConnectionFactory" ref="connectionfactory"/>-->
-    <!--<property name="username" value="test"/>-->
-    <!--<property name="password" value="asdf"/>-->
-    <!--</bean>-->
-
+    <bean id="credentialsConnectionFactory"
+        class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">
+        <property name="targetConnectionFactory" ref="connectionFactory"/>
+        <property name="username" value="admin"/>
+        <property name="password" value="admin"/>
+    </bean>
 
 
-    <!--<bean id="jmstemplate" class="org.springframework.jms.core.JmsTemplate">-->
-    <!--<property name="connectionFactory" ref="credentialsconnectionfactory"/>-->
-    <!--<property name="defaultDestination" ref="destination"/>-->
-    <!--</bean>-->
+    <bean id="JMSTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="credentialsConnectionFactory"/>
+        <property name="defaultDestination" ref="destination"/>
+    </bean>
 
-    <!--<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">-->
-    <!--<property name="connectionFactory" ref="credentialsconnectionfactory"/>-->
-    <!--<property name="destination" ref="destination"/>-->
-    <!--<property name="messageListener" ref="receiver"/>-->
-    <!--</bean>-->
+    <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="credentialsConnectionFactory"/>
+        <property name="destination" ref="destination"/>
+        <property name="messageListener" ref="receiver"/>
+    </bean>
 
-    <!--<bean id="sender" class="net.jms.JMSSender">-->
-    <!--<property name="jmsTemplate" ref="jmstemplate"/>-->
-    <!--</bean>-->
+    <bean id="sender" class="net.jms.JMSSender">
+        <property name="jmsTemplate" ref="JMSTemplate"/>
+    </bean>
 
-    <!--<bean id="receiver" class="net.jms.JMSReceiver"/>-->
+    <bean id="receiver" class="net.jms.JMSReceiver">
+        <property name="jmsTemplate" ref="JMSTemplate"/>
+    </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:/PostgresTest"/>
@@ -107,29 +107,6 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate"/>
     </bean>
-
-
-                                        <!--</MQ TEST>-->
-
-    <!--<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">-->
-    <!--<property name="brokerURL" value="tcp://localhost:61616" />-->
-    <!--</bean>-->
-
-    <!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">-->
-    <!--<property name="connectionFactory" ref="connectionFactory" />-->
-    <!--<property name="receiveTimeout" value="10000" />-->
-    <!--</bean>-->
-
-    <!--<bean id="messageDestination" class="org.apache.activemq.command.ActiveMQQueue">-->
-    <!--<constructor-arg value="messageQueue1" />-->
-    <!--</bean>-->
-
-    <!--<bean id="springJmsProducer" class="net.jms.JMSSender<!-<property name="destination" ref="messageDestination" />-->
-    <!--<property name="jmsTemplate" ref="jmsTemplate" />-->
-    <!--</bean>-->
-    <!--<bean id="springJmsConsumer" class="net.jms.JMSSender<!-<property name="destination" ref="messageDestination" />-->
-    <!--<property name="jmsTemplate" ref="jmsTemplate" />-->
-    <!--</bean>-->
 
 </beans>
 
