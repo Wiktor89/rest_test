@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by VAfonin on 14.11.2017.
- */
 @Service("serviceCity")
 @Transactional
 public class ServiceCityImp implements ServiceCity {
@@ -22,23 +19,21 @@ public class ServiceCityImp implements ServiceCity {
     @Autowired
     @Qualifier(value = "dao")
     public void setDao(Dao dao) {
-        LOGGER.info("Dao " + dao);
-        LOGGER.debug("Dao " + dao);
+        LOGGER.info("Dao {}" + dao);
+        LOGGER.debug("Dao {}" + dao);
         this.dao = dao;
     }
 
     @Override
     public void addCity(Channel city) {
-        LOGGER.info("City " + city);
-        LOGGER.debug("City " + city);
+        LOGGER.info("City {}" + city);
+        LOGGER.debug("City {}" + city);
         dao.addCity(city);
     }
 
     @Override
-    public void removeCity(Channel city) {
-        LOGGER.info("City" + city);
-        LOGGER.debug("City" + city);
-        dao.removeCity(city);
+    public Channel getCity() {
+        return dao.getCity();
     }
 
 }

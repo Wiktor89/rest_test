@@ -9,6 +9,6 @@ public interface Dao {
 
     void addCity(Channel city);
 
-    void removeCity(Channel city);
+    Channel getCity();
 
 }

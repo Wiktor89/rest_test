@@ -16,8 +16,8 @@
 	</servlet-mapping>
 
 	<context-param>
-	<param-name>contextConfigLocation</param-name>
-	<param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
 	</context-param>
 
 	<welcome-file-list>

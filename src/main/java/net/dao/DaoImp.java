@@ -2,15 +2,14 @@ package net.dao;
 
 import net.models.Channel;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by VAfonin on 14.11.2017.
- */
 @Repository("dao")
 public class DaoImp implements Dao {
 
@@ -35,9 +34,14 @@ public class DaoImp implements Dao {
     }
 
     @Override
-    public void removeCity(Channel city) {
-        LOGGER.info("Remove city " + city);
-        LOGGER.debug("Remove city " + city);
+    public Channel getCity() {
+        LOGGER.info("Start getCity {}");
+        Session ses = sessionFactory.getCurrentSession();
+        Criteria c = ses.createCriteria(Channel.class);
+        c.setProjection(Projections.max("id"));
+        Integer id = (Integer) c.uniqueResult();
+        Channel o = (Channel) ses.get(Channel.class, id);
+        LOGGER.debug("Channel {} " + o);
+        return o;
     }
-
 }

@@ -16,7 +16,7 @@
         }
 
         body {
-            background: #FF9000;
+            background: #4146ff;
         }
 
         h1 {
@@ -166,21 +166,18 @@
 </head>
 
 <body>
-<form id="/" onsubmit="validate()" action="<c:url value="/main/nameCity"/>" method="GET" onsubmit="validate()">
+<form id="/" action="<c:url value="/main/nameCity"/>" method="POST" onsubmit="validate()">
   <div class="login-form">
      <h1>Страница для просмотра погоды</h1>
      <div class="form-group ">
        <input type="text" name="name" class="form-control" placeholder="enter the name of the city" id="log">
        <i class="fa fa-user"></i>
      </div>
-     <%--<div class="form-group log-status">--%>
-       <%--<input type="password" name="password" class="form-control" placeholder="Password" id="Passwod">--%>
-       <%--<i class="fa fa-lock"></i>--%>
-     <%--</div>--%>
-      <%--<span class="alert">Invalid Credentials</span>--%>
-      <%--<a class="link" href="/addUser" ><font size="2", color="#dc143c" face="Arial">register</font></a>--%>
       <input type="submit" name="Log in">
    </div>
+</form>
+<form action="<c:url value="/main/getQueue"/>" method="GET">
+    <input type="submit" name="Log in">
 </form>
 </body>
 </html>

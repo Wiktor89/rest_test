@@ -9,6 +9,6 @@ public interface ServiceCity {
 
     void addCity(Channel city);
 
-    void removeCity(Channel city);
+    Channel getCity();
 
 }

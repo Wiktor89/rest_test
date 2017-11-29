@@ -1,26 +1,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<context:component-scan base-package="net" />
+	<context:component-scan base-package="net"/>
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/WEB-INF/pages/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
 	</bean>
 
     <bean id="JndiTemplate" class="org.springframework.jndi.JndiTemplate">
@@ -40,8 +38,8 @@
     </bean>
 
     <bean id="destination" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiTemplate" ref="JndiTemplate"/>
-    <property name="jndiName" value="java:/testBroker"/>
+        <property name="jndiTemplate" ref="JndiTemplate"/>
+        <property name="jndiName" value="java:/testBroker"/>
     </bean>
 
     <bean id="credentialsConnectionFactory"
@@ -52,23 +50,18 @@
     </bean>
 
 
-    <bean id="JMSTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="credentialsConnectionFactory"/>
-        <property name="defaultDestination" ref="destination"/>
-    </bean>
-
-    <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
-        <property name="connectionFactory" ref="credentialsConnectionFactory"/>
-        <property name="destination" ref="destination"/>
-        <property name="messageListener" ref="receiver"/>
+        <property name="defaultDestination" ref="destination" />
+        <!--<property name="receiveTimeout" value="1000" />-->
     </bean>
 
     <bean id="sender" class="net.jms.JMSSender">
-        <property name="jmsTemplate" ref="JMSTemplate"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
     </bean>
 
     <bean id="receiver" class="net.jms.JMSReceiver">
-        <property name="jmsTemplate" ref="JMSTemplate"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -94,6 +87,7 @@
                 <value>net.models.Astronomy</value>
             </list>
         </property>
+
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
